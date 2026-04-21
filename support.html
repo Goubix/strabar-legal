@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StraBar – Assistance</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: #0f0f0f;
+      color: #e8e8e8;
+      line-height: 1.7;
+      padding: 0 16px 80px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 16px 40px;
+      border-bottom: 1px solid #222;
+      margin-bottom: 48px;
+    }
+
+    header .logo {
+      font-size: 2.6rem;
+      font-weight: 800;
+      color: #F5D76E;
+      letter-spacing: -1px;
+    }
+
+    header .logo span { font-size: 2rem; margin-right: 6px; }
+
+    header .subtitle {
+      margin-top: 8px;
+      font-size: 1.1rem;
+      color: #999;
+      font-weight: 400;
+    }
+
+    header .date {
+      margin-top: 12px;
+      font-size: 0.85rem;
+      color: #555;
+    }
+
+    main {
+      max-width: 740px;
+      margin: 0 auto;
+    }
+
+    section { margin-bottom: 48px; }
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #F5D76E;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #1e1e1e;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h2 .num {
+      background: #F5D76E;
+      color: #000;
+      font-size: 0.75rem;
+      font-weight: 800;
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    p { color: #bbb; margin-bottom: 12px; font-size: 0.97rem; }
+
+    a {
+      color: #F5D76E;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+
+    a:hover { opacity: 0.8; }
+
+    strong { color: #e8e8e8; font-weight: 600; }
+
+    /* ── Contact card (hero) ──────────────────────── */
+    .contact-card {
+      position: relative;
+      background: linear-gradient(145deg, #1a1812 0%, #161616 100%);
+      border: 1px solid #F5D76E44;
+      border-radius: 16px;
+      padding: 28px 28px 24px;
+      margin-bottom: 16px;
+      overflow: hidden;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .contact-card::before {
+      content: "";
+      position: absolute;
+      top: -40%;
+      right: -20%;
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, #F5D76E22 0%, transparent 60%);
+      pointer-events: none;
+      animation: pulseGlow 6s ease-in-out infinite;
+    }
+
+    .contact-card:hover {
+      border-color: #F5D76E77;
+      transform: translateY(-2px);
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.08); }
+    }
+
+    .contact-card .label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: #F5D76E;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .contact-card h3 {
+      font-size: 1.3rem;
+      color: #e8e8e8;
+      margin-bottom: 6px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .contact-card .lead {
+      color: #999;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    .email-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #F5D76E;
+      color: #000;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 12px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 20px -6px #F5D76E66;
+    }
+
+    .email-btn:hover {
+      background: #FCE28F;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 28px -6px #F5D76E99;
+      opacity: 1;
+    }
+
+    .email-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .contact-card .response-time {
+      margin-top: 14px;
+      font-size: 0.82rem;
+      color: #666;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      background: #3ecf8e;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #3ecf8e99;
+      animation: blink 2s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* ── FAQ accordion ───────────────────────────── */
+    .faq-item {
+      background: #161616;
+      border: 1px solid #222;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      transition: border-color 0.25s ease, background 0.25s ease;
+    }
+
+    .faq-item:hover {
+      border-color: #333;
+      background: #191919;
+    }
+
+    .faq-item[open] {
+      border-color: #F5D76E44;
+      background: #181714;
+    }
+
+    .faq-item summary {
+      padding: 16px 20px;
+      cursor: pointer;
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: #e8e8e8;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      outline: none;
+      user-select: none;
+    }
+
+    .faq-item summary::-webkit-details-marker { display: none; }
+
+    .faq-item summary:focus-visible {
+      box-shadow: inset 0 0 0 2px #F5D76E66;
+      border-radius: 12px;
+    }
+
+    .faq-item .chevron {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      color: #F5D76E;
+      transition: transform 0.25s ease;
+    }
+
+    .faq-item[open] .chevron {
+      transform: rotate(180deg);
+    }
+
+    .faq-body {
+      padding: 0 20px 18px;
+      color: #aaa;
+      font-size: 0.94rem;
+      line-height: 1.7;
+      animation: fadeSlide 0.3s ease;
+    }
+
+    .faq-body p { color: #aaa; margin-bottom: 10px; }
+    .faq-body p:last-child { margin-bottom: 0; }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Footer ──────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 40px 16px 20px;
+      color: #444;
+      font-size: 0.8rem;
+      border-top: 1px solid #1a1a1a;
+      margin-top: 60px;
+      max-width: 740px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    footer a {
+      color: #777;
+      margin: 0 8px;
+    }
+
+    footer a:hover { color: #F5D76E; opacity: 1; }
+
+    footer .divider {
+      margin: 0 4px;
+      color: #333;
+    }
+
+    footer .copyright {
+      margin-top: 12px;
+      color: #444;
+    }
+
+    /* ── Reduced motion ──────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ── Mobile ──────────────────────────────────── */
+    @media (max-width: 500px) {
+      header { padding: 48px 16px 32px; }
+      header .logo { font-size: 2.2rem; }
+      .contact-card { padding: 24px 20px 22px; }
+      .contact-card h3 { font-size: 1.15rem; }
+      .email-btn { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><span>🍺</span>StraBar</div>
+  <div class="subtitle">Centre d'assistance</div>
+  <div class="date">On est là pour t'aider</div>
+</header>
+
+<main>
+
+  <section>
+    <div class="contact-card">
+      <div class="label">Une question ? Un bug ?</div>
+      <h3>Écris-nous, on répond vite</h3>
+      <p class="lead">Bug, suggestion, demande RGPD ou juste dire coucou — toutes les messages arrivent dans la même boîte.</p>
+      <a class="email-btn" href="mailto:contact.strabar@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="5" width="18" height="14" rx="2"/>
+          <path d="m3 7 9 6 9-6"/>
+        </svg>
+        contact.strabar@gmail.com
+      </a>
+      <div class="response-time">
+        <span class="status-dot"></span>
+        Réponse habituelle sous 48h
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">?</span> Questions fréquentes</h2>
+
+    <details class="faq-item">
+      <summary>
+        Comment supprimer mon compte ?
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="faq-body">
+        <p>Ouvre StraBar, va dans <strong>Profil → Paramètres</strong>, puis choisis <strong>Supprimer mon compte</strong>.</p>
+        <p>La suppression est immédiate et irréversible : tes sorties, photos, commentaires et abonnements sont définitivement effacés.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>
+        Comment bloquer un utilisateur ?
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="faq-body">
+        <p>Va sur le profil de la personne, appuie sur le menu en haut à droite, puis choisis <strong>Bloquer</strong>.</p>
+        <p>Vous ne verrez plus les contenus l'un de l'autre et vous serez mutuellement retirés de vos abonnés.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>
+        Comment signaler un contenu inapproprié ?
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="faq-body">
+        <p>Sur chaque sortie ou commentaire, appuie sur le menu contextuel et choisis <strong>Signaler</strong>.</p>
+        <p>Tous les signalements sont examinés sous 24h et les contenus qui enfreignent les règles sont retirés.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>
+        Je ne reçois pas les notifications
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="faq-body">
+        <p>Vérifie que les notifications sont autorisées dans <strong>Réglages iOS → Notifications → StraBar</strong>.</p>
+        <p>Dans l'app, tu peux aussi affiner tes préférences depuis <strong>Profil → Paramètres → Notifications</strong>.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>
+        La géolocalisation ne fonctionne pas
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="faq-body">
+        <p>StraBar a besoin de la localisation pour détecter les lieux autour de toi.</p>
+        <p>Va dans <strong>Réglages iOS → Confidentialité → Localisation → StraBar</strong> et choisis <strong>Lorsque l'app est active</strong>.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>
+        J'ai perdu l'accès à mon compte
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="faq-body">
+        <p>Utilise <strong>Mot de passe oublié</strong> sur l'écran de connexion pour recevoir un lien de réinitialisation.</p>
+        <p>Si le problème persiste, écris-nous à <a href="mailto:contact.strabar@gmail.com">contact.strabar@gmail.com</a> depuis l'email associé au compte.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>
+        Comment gérer mes données personnelles ?
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="faq-body">
+        <p>Tu peux consulter et modifier tes données à tout moment depuis l'app.</p>
+        <p>Pour un export complet ou toute demande RGPD, contacte-nous à <a href="mailto:contact.strabar@gmail.com">contact.strabar@gmail.com</a>. Détails complets dans la <a href="https://goubix.github.io/strabar-legal/">Politique de confidentialité</a>.</p>
+      </div>
+    </details>
+  </section>
+
+</main>
+
+<footer>
+  <p>
+    <a href="https://goubix.github.io/strabar-legal/">Politique de confidentialité</a>
+    <span class="divider">·</span>
+    <a href="mailto:contact.strabar@gmail.com">Contact</a>
+  </p>
+  <p class="copyright">© 2026 Goubix — Tous droits réservés</p>
+</footer>
+
+</body>
+</html>
